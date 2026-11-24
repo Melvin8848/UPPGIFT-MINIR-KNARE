@@ -16,10 +16,12 @@ function format(n){
 }
 
 function tal(t){
-    if (nyttTal) {nuvrande === "0") { nuvarande = t; nyttTal = false; } else { nuvarande += t; } skarm.textContent = nuvarande;
+    if (nyttTal || nuvarande === "0") { nuvarande = t; nyttTal = false; } else nuvarande += t;
 }
+
 function komma(){
     if (nyttTal) { nuvarande = "0."; nyttTal = false; } else if (!nuvarande.includes(".")) { nuvarande += "."; }
+}
 function berakna(){
     if (op === null) return;
     const svar = rakna[op](parseFloat(forra), parseFloat(nuvrande));
@@ -27,5 +29,56 @@ function berakna(){
     nuvarande = format(svar);
     op = null;
     nyttTal = true;
-    skarm.textContent = nuvarande;
 }
+function operator(o){
+    if (op !== null && !nyttTal) berakna();
+    forra = nuvarande;
+    op = o;
+    nyttTal = true;
+    historik.textContent = `${format(forra)} ${symbol[op]}`;
+}
+
+function rot(){
+    const x = parseFloat(nuvrande);
+    historik.textContent = `√${format(x)}`;
+     nuvarande = x < 0 ? "Error" : format(Math.sqrt(x));
+     nyttTal = true;
+}
+
+function procent(){
+nuvarande = format(parseFloat(nuvrande) / 100);
+    nyttTal = true;
+}
+
+function rensa(){
+    nuvarande = "0";
+    forra = null;
+    op = null;
+    nyttTal = false;
+    historik.textContent = "";
+}
+
+function tryck(knapp) {
+    knapp.classList.add("Tryckt");
+    setTimeout(() => knapp.classList.remove("Tryckt"), 150);
+    if (nuvarande === "Error") rensa();
+    const { typ, v } = knapp.dataset;
+    if (typ === "tal") tal(v);
+    else if (typ === "komma") komma();
+    else if (typ === "operator") operator(v);
+    else if (typ === "lika") berakna();
+    else if (typ === "sqrt") rot();
+    else if (typ === "procent") procent();
+    else if (typ === "rensa") rensa();
+    }
+
+    const knappar = [...document.querySelectorAll(".knappar button");
+    knappar.forEach(k => k.addEventListener("click", () => tryck(k)));
+
+
+document.addEventListener("keydown", e => {
+    const t = e.key === "," ? "." : e.key === "=" ? "Enter" : e.key;
+    const k = knappar.find(b => b.dataset.tangent === t);
+    if (k) {e.preventDefault(); tryck(k);}
+});
+ 

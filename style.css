@@ -1,0 +1,55 @@
+body {
+  font-family: sans-serif;
+  background: #222;
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
+.kalkylator {
+  background: #333;
+  padding: 16px;
+  border-radius: 16px;
+  width: 300px;
+}
+#historik {
+  height: 20px;
+  text-align: right;
+  color: #999;
+  font-size: 14px;
+}
+#skarm {
+  background: #111;
+  color: #fff;
+  font-size: 2.2rem;
+  text-align: right;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.knappar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+button {
+  padding: 16px 0;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background: #555;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.08s, filter 0.08s;
+}
+button.funk { background: #3f7f5f; }
+button.op   { background: #e8890c; }
+button.lika { background: #2b7de9; }
+
+button:hover { filter: brightness(1.15); }
+button:active,
+button.tryckt {
+  transform: scale(0.9);
+  filter: brightness(1.6);
+  outline: 3px solid #fff;
+}

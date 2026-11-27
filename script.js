@@ -12,6 +12,7 @@ const rakna = {
 const symbol = {"+": "+", "-": "-", "*": "×", "/": "÷", "^": "^"};
 
 function format(n){
+    n=Number(n);
     return isFinite(n) ? String(parseFloat(n.toPrecision(12))) : "Error";
 }
 
@@ -70,7 +71,7 @@ function tryck(knapp) {
     else if (typ === "sqrt") rot();
     else if (typ === "procent") procent();
     else if (typ === "rensa") rensa();
-        skarm.textContent = (op !== null && nyttTal) ? nuvarande + " " + symbol[op] : nuvarande;
+    skarm.textContent = (op !== null && nyttTal) ? nuvarande + " " + symbol[op] : nuvarande;
     }
 
     const knappar = [...document.querySelectorAll(".knappar button")];

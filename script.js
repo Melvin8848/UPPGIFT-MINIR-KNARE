@@ -70,7 +70,7 @@ function tryck(knapp) {
     else if (typ === "sqrt") rot();
     else if (typ === "procent") procent();
     else if (typ === "rensa") rensa();
-    skarm.textContent = (op !== null && nyttTal) ? `${format(forra)} ${symbol[op]} ${format(nuvarande)}` : nuvarande;
+        skarm.textContent = (op !== null && nyttTal) ? nuvarande + " " + symbol[op] : nuvarande;
     }
 
     const knappar = [...document.querySelectorAll(".knappar button")];

@@ -24,8 +24,8 @@ function komma(){
 }
 function berakna(){
     if (op === null) return;
-    const svar = rakna[op](parseFloat(forra), parseFloat(nuvrande));
-    historik.textContent = `${format(forra)} ${symbol[op]} ${format(nuvrande)} = ${format(svar)}`;
+    const svar = rakna[op](parseFloat(forra), parseFloat(nuvarande));
+    historik.textContent = `${format(forra)} ${symbol[op]} ${format(nuvarande)} = ${format(svar)}`;
     nuvarande = format(svar);
     op = null;
     nyttTal = true;
@@ -39,14 +39,14 @@ function operator(o){
 }
 
 function rot(){
-    const x = parseFloat(nuvrande);
+    const x = parseFloat(nuvarande);
     historik.textContent = `√${format(x)}`;
      nuvarande = x < 0 ? "Error" : format(Math.sqrt(x));
      nyttTal = true;
 }
 
 function procent(){
-nuvarande = format(parseFloat(nuvrande) / 100);
+nuvarande = format(parseFloat(nuvarande) / 100);
     nyttTal = true;
 }
 
@@ -59,20 +59,21 @@ function rensa(){
 }
 
 function tryck(knapp) {
-    knapp.classList.add("Tryckt");
-    setTimeout(() => knapp.classList.remove("Tryckt"), 150);
+    knapp.classList.add("tryckt");
+    setTimeout(() => knapp.classList.remove("tryckt"), 150);
     if (nuvarande === "Error") rensa();
     const { typ, v } = knapp.dataset;
     if (typ === "tal") tal(v);
     else if (typ === "komma") komma();
-    else if (typ === "operator") operator(v);
+    else if (typ === "op") operator(v);
     else if (typ === "lika") berakna();
     else if (typ === "sqrt") rot();
     else if (typ === "procent") procent();
     else if (typ === "rensa") rensa();
+    skarm.textContent = nuvarande;
     }
 
-    const knappar = [...document.querySelectorAll(".knappar button");
+    const knappar = [...document.querySelectorAll(".knappar button")];
     knappar.forEach(k => k.addEventListener("click", () => tryck(k)));
 
 
